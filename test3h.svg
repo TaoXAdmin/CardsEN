@@ -13,6 +13,19 @@
         overflow: hidden;
     }
 </style>
+  <style>
+        /* CSS pour centrer le SVG dans l'écran */
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
   <defs>
     <symbol id="SH3" viewBox="-600 -600 1200 1200" preserveAspectRatio="xMinYMid">
       <path d="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z" fill="red"/>
