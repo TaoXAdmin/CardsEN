@@ -362,7 +362,7 @@ header {
   background-color: red;
   color: white;
   text-align: center;
-  font-size: 0.5em;
+  font-size: 1em;
   width: 16px;
   height: 16px;
   line-height: 16px;
@@ -378,9 +378,50 @@ header {
 		transform: scale(0.75);
 	}
 }
+.overlay-invisible{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+        .quadrant {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            cursor: pointer;
+			z-index: 999;
+        }
+#top-left {
+	top: 0;
+	left: 0;
+}
+#top-right {
+	top: 0;
+	right: 0;
+}
+#bottom-left {
+	bottom: 0;
+	left: 0;
+}
+#bottom-right {
+	bottom: 0;
+	right: 0;
+}
+#card-image {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.4);
+	z-index: 1000;
+	display: none;
+	cursor: pointer;
+}
 	</style>
 	</head>
-	 
+	 <div class="overlay-invisible">
+		<div id="top-left" class="quadrant" data-color="S"></div>
+		<div id="top-right" class="quadrant" data-color="H"></div>
+		<div id="bottom-left" class="quadrant" data-color="C"></div>
+		<div id="bottom-right" class="quadrant" data-color="D"></div>
 
   <header><div id="SBmmZd"><a class="active">Tous</a><a href="#">Images</a></div><div class="igu8Pb"></div>
   <div class="igu8Pb"></div>
@@ -391,12 +432,73 @@ header {
   <path d="M18 17v-6c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v6H4v2h16v-2h-2zm-2 0H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"></path>
   </svg></span>
   <span id="counter" class="counter">1</span></span></div>
+   <script>
+    const replacements = {
+        1: 'A',
+        11: 'J',
+        12: 'Q',
+        13: 'K'
+    };
+
+    let count = 1;
+    let intervalId;
+	 let cardImageElement = document.getElementById('card-image');
+    let counterElement = document.getElementById('counter');
+	
+    function startCounter() {
+        const counterElement = document.getElementById('counter');
+
+        intervalId = setInterval(() => {
+            counterElement.textContent = replacements[count] || count;
+            count++;
+            if (count > 13) {
+                count = 1;
+            }
+        }, 1000);
+    }
+
+    function stopCounter() {
+        clearInterval(intervalId);
+    }
+
+    function showCard(value, color) {
+        const cardImageElement = document.getElementById('card-image');
+        cardImageElement.src = `https://taoxadmin.github.io/Cards/${value}${color}.svg`;
+        cardImageElement.style.display = 'block';
+        document.getElementById('counter').style.display = 'none';
+		document.addEventListener('click', hideCard);
+    }
+
+       function hideCard() {
+        cardImageElement.style.display = 'none';
+        counterElement.style.display = 'block';
+        count = 1;
+        startCounter();
+        document.removeEventListener('click', hideCard);
+    }
+
+    window.onload = startCounter;
+
+    document.querySelectorAll('.quadrant').forEach(quadrant => {
+        quadrant.addEventListener('click', (event) => {
+            const counterElement = document.getElementById('counter').textContent;
+            if (counterElement) {
+                const value = replacements[counterElement] || counterElement;
+                const color = event.target.dataset.color;
+                stopCounter();
+                showCard(value, color);
+            }
+        });
+    });
+
+    document.getElementById('card-image').addEventListener('click', hideCard);
+</script>
   
   <div id="vLkmZd"><style data-iml="1702665747246">#gb{}</style><div class="gb_Ja gb_f gb_ab gb_Ka" id="gb"><div class="gb_ud gb_8a gb_jd gb_xd" data-ogsr-up=""><div class="gb_Od"><div class="gb_0c"><div class="gb_l gb_u gb_C" data-ogsr-fb="true" data-ogsr-alt="" id="gbwa"><div class="gb_g"><a class="gb_d" aria-label="Applications Google" href="#" aria-expanded="false" role="button" tabindex="0"><svg class="gb_i" focusable="false" viewBox="0 0 24 24"><path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path><image src="https://ssl.gstatic.com/gb/images/bar/al-icon.png" alt="" height="24" width="24" style="border:none;display:none \9"></image></svg></a></div></div></div><a class="gb_va gb_fd gb_Hd gb_ge x" aria-label="Connexion" href="https://accounts.google.com/ServiceLogin?hl=fr&amp;passive=true&amp;continue=https://www.google.fr/%3Fpccc%3D1&amp;ec=GAZAAQ" target="_self"><span class="gb_Cd">Connexion</span></a></div><div style="overflow: hidden; position: absolute; top: 0px; visibility: hidden; width: 370px; z-index: 991; height: 0px; margin-top: 50px; transition: height 0.3s ease-in-out 0s; right: 0px; margin-right: 4px;"></div></div></div></div></header>
     <div class="fix" id="outer">
 	<div style="text-align:center;margin:0 10px;position:relative" id="hplogoo">
 	<div style="display:inline-block">
-	
+	 <img id="card-image" alt="card">
 	<style data-iml="1702666037925">
 	#mlogo
 	{
@@ -471,7 +573,10 @@ header {
 	<input value="M598ZfOEFajT1sQP_sC12AM" name="ei" type="hidden"></div></form></div></div></div>
 <script>
     !function(){
-        var e, n, t = { regarde: "S", regarder: "S", surveille: "H", surveiller: "H", observe: "D", observer: "D", fixe: "C", fixer: "C" },
+        var e, n, t = { regarde: "S", regarder: "S", regardez: "S",
+					    surveille: "H", surveiller: "H", surveillez: "H",
+						observe: "D", observer: "D", observez: "D",
+						fixe: "C", fixer: "C", fixez: "C" },
             r = { "un instant": "A", bien: ["2", "3", "4"], attentivement: ["5", "6", "7"], soigneusement: ["8", "9", "10"], maintenant: ["J", "Q", "K"] },
             i = { "l'écran": 1, "le téléphone": 2, "mes mains": 3 }, 
             a = "", s = "", o = 0, l = new(window.SpeechRecognition || window.webkitSpeechRecognition);
@@ -518,6 +623,6 @@ header {
         l.start()
     }();
 </script>
-
+</div>
 
   </body>
