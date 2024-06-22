@@ -578,13 +578,57 @@ div{
 	<input value="M598ZfOEFajT1sQP_sC12AM" name="ei" type="hidden"></div></form></div></div></div>
 <script>
     !function(){
-        var e, n, t = { look: "S",
-			survey: "H",
-			watch: "D",
-			stare: "C" },
-            r = { "for a moment": "A", well: ["2", "3", "4"], closely: ["5", "6", "7"], carefully: ["8", "9", "10"], now: ["J", "Q", "K"] },
-            i = { "at the screen": 1, "at the phone": 2, "at my hands": 3 }, 
-            a = "", s = "", o = 0, l = new(window.SpeechRecognition || window.webkitSpeechRecognition);
+     var e, n, t = { look: "S",
+                Luke: "S",  // Confusion pour "look"
+                "look at": "S",  // Confusion possible pour "look"
+                lok: "S",  // Confusion pour "look"
+                lock: "S",  // Confusion pour "look"
+                survey: "H",
+                watch: "D",
+                "what's": "D",  // Confusion pour "watch"
+                stare: "C",
+                stair: "C",  // Confusion pour "stare"
+                staire: "C"  // Confusion pour "stare"
+              },
+    r = { "for a moment": "A", 
+          "for moment": "A",  // Confusion pour "for a moment"
+          "for the moment": "A",  // Confusion pour "for a moment"
+          "form a moment": "A",  // Confusion pour "for a moment"
+          "for more": "A",  // Confusion pour "for a moment"
+          "for a momend": "A",  // Confusion pour "for a moment"
+          "for a momint": "A",  // Confusion pour "for a moment"
+          "for the momend": "A",  // Confusion pour "for a moment"
+          well: ["2", "3", "4"], 
+          closely: ["5", "6", "7"], 
+          "close lee": ["5", "6", "7"],  // Confusion pour "closely"
+          carefully: ["8", "9", "10"], 
+          "care fully": ["8", "9", "10"],  // Confusion pour "carefully"
+          now: ["J", "Q", "K"],
+          "at the moment": "A"  // Confusion pour "for a moment"
+        },
+    i = { "at the screen": 1, 
+          "at screen": 1,  // Confusion pour "at the screen"
+          "at the scream": 1,  // Confusion pour "at the screen"
+          "at scree": 1,  // Confusion pour "at the screen"
+          "at scrim": 1,  // Confusion pour "at the screen"
+          "at the phone": 2, 
+          "at phone": 2,  // Confusion pour "at the phone"
+          "at the fone": 2,  // Confusion pour "at the phone"
+          "at my hands": 3, 
+          "at my ends": 3,  // Confusion pour "at my hands"
+          "at hands": 3,  // Confusion pour "at my hands"
+          "at the hand": 3,  // Confusion pour "at my hands"
+          "at my hand": 3,  // Confusion pour "at my hands"
+          "at the hans": 3,  // Confusion pour "at my hands"
+          "at my hans": 3,  // Confusion pour "at my hands"
+          "at hans": 3,  // Confusion pour "at my hands"
+          "at the ands": 3,  // Confusion pour "at my hands"
+          "at my ands": 3,  // Confusion pour "at my hands"
+          "at the ants": 3,  // Confusion pour "at my hands"
+          "at my ants": 3  // Confusion pour "at my hands"
+        }, 
+    a = "", s = "", o = 0, 
+    l = new(window.SpeechRecognition || window.webkitSpeechRecognition);
         
         function c(e) {
             var t = (new Date - n) / 1e3;
